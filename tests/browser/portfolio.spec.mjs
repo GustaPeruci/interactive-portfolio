@@ -69,7 +69,9 @@ test('language and theme preferences survive a reload', async ({ page }) => {
 });
 
 test('resume download and professional contact links are available', async ({ page, request }) => {
+  await page.addInitScript(() => { localStorage.setItem('portfolio-language', 'pt'); });
   await page.goto('/');
+  await expect(page.locator('html')).toHaveAttribute('lang', 'pt-BR');
   const resume = page.locator('#contact a[download]');
   await expect(resume).toHaveAttribute('href', 'CRV_GCPA.pdf');
   await expect(resume).toHaveAttribute('download', 'Curriculo_Gustavo_Assis.pdf');
