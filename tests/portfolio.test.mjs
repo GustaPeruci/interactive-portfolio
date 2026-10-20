@@ -94,3 +94,32 @@ test('project filters toggle visibility and aria state', () => {
   ui.filters[0].click();
   assert.deepEqual(ui.projects.map(p => p.hidden), [false, false, false]);
 });
+
+test('career timeline includes InfoSoft, WEG internship and current role', () => {
+  const experience = html.split('<section id="experience"')[1]?.split('<section id="projects"')[0];
+  assert.ok(experience, 'experience section exists');
+  assert.match(experience, /InfoSoft Sistemas/);
+  assert.match(experience, /Estagiário em Engenharia de Software/);
+  assert.match(experience, /Desenvolvedor de Software Júnior/);
+  assert.match(experience, /DataFlex/);
+  assert.match(experience, /data-en="Software Engineering Intern"/);
+});
+
+test('case studies have unique anchors and accessible bilingual navigation', () => {
+  const ids = ['pryzor-case', 'forge-case', 'opspilot-case'];
+  for (const id of ids) {
+    assert.equal(html.split('id="' + id + '"').length - 1, 1, id + ' must be unique');
+    assert.match(html, new RegExp('href="#' + id + '"'));
+  }
+  assert.equal(html.split('class="case-navigation"').length - 1, 3);
+  assert.equal(html.split('aria-label="Case study navigation"').length - 1, 3);
+  assert.match(html, /href="#main-content"/);
+});
+
+test('visible bilingual copy has both translations', () => {
+  const openingTags = html.match(/<[^>]+data-pt="[^"]*"[^>]*>/g) || [];
+  assert.ok(openingTags.length > 20);
+  for (const tag of openingTags) {
+    assert.match(tag, /data-en="[^"]*"/, 'missing English translation: ' + tag.slice(0, 120));
+  }
+});
