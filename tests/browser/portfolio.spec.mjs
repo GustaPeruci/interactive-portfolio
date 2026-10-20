@@ -102,3 +102,19 @@ test('public professional profile metadata is consistent', async ({ page }) => {
   expect(profile.sameAs).toContain('https://github.com/GustaPeruci');
   expect(profile.sameAs).toContain('https://www.linkedin.com/in/gustavo-conceição-peruci-de-assis');
 });
+
+test('case study index navigates to every project in both languages', async ({ page }) => {
+  await page.addInitScript(() => { localStorage.setItem('portfolio-language', 'pt'); });
+  await page.goto('/');
+  const index = page.locator('.case-index');
+  await expect(index.getByText('EXPLORAR EM DETALHES')).toBeVisible();
+  for (const id of ['pryzor-case', 'forge-case', 'opspilot-case']) {
+    const link = index.locator('a[href="#' + id + '"]');
+    await expect(link).toHaveCount(1);
+    await link.click();
+    await expect(page).toHaveURL(new RegExp('#' + id + '$'));
+    await expect(page.locator('#' + id)).toBeVisible();
+  }
+  await page.locator('#lang').click();
+  await expect(index.getByText('EXPLORE IN DEPTH')).toBeVisible();
+});
