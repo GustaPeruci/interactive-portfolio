@@ -38,7 +38,8 @@ test('translation, project filters and skip link work', async ({ page }) => {
   await expect(page.locator('.project[data-category="design"]')).toBeVisible();
   const skip = page.locator('.skip-link');
   await expect(skip).toBeHidden();
-  await skip.focus();
+  await page.keyboard.press('Tab');
+  await expect(skip).toBeFocused();
   await expect(skip).toBeVisible();
   await skip.press('Enter');
   await expect(page).toHaveURL(/#main-content$/);
