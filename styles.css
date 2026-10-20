@@ -5,7 +5,7 @@
 :root{--bg:var(--fg-canvas);--panel:var(--fg-surface);--text:var(--fg-text);--muted:var(--fg-text-secondary);--edge:var(--fg-border);--accent:var(--fg-accent);--lime:var(--fg-success)}body.light{--bg:var(--fg-canvas);--panel:var(--fg-surface);--text:var(--fg-text);--muted:var(--fg-text-secondary);--edge:var(--fg-border);--accent:var(--fg-accent);--lime:var(--fg-success)}.hero h1 em{background:linear-gradient(105deg,var(--fg-accent),var(--fg-success));background-clip:text;color:transparent}.primary{background:var(--fg-accent);color:var(--fg-on-accent)}.availability{border-color:var(--fg-border-strong)}.skip-link{background:var(--fg-accent);color:var(--fg-on-accent)}.filter.active,.filter[aria-pressed="true"]{color:var(--fg-on-accent)}
 
 /* Accessible skip link: off-canvas until keyboard focus; override Forge anchor defaults. */
-a.skip-link:not(:focus):not(:focus-visible){position:fixed!important;top:0!important;left:0!important;transform:translateY(-150%)!important;visibility:hidden!important;pointer-events:none!important}
+a.skip-link:not(:focus):not(:focus-visible){position:fixed!important;top:0!important;left:0!important;transform:translateY(-150%)!important;pointer-events:none!important}
 a.skip-link:focus,a.skip-link:focus-visible{position:fixed!important;top:12px!important;left:12px!important;transform:none!important;visibility:visible!important;pointer-events:auto!important;z-index:9999!important;outline:3px solid var(--fg-focus);outline-offset:3px}
 #main-content:focus{outline:none}
 
