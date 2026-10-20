@@ -67,3 +67,16 @@ test('language and theme preferences survive a reload', async ({ page }) => {
   expect(await page.evaluate(() => localStorage.getItem('portfolio-language'))).toBe('en');
   expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBe('light');
 });
+
+test('resume download and professional contact links are available', async ({ page, request }) => {
+  await page.goto('/');
+  const resume = page.locator('#contact a[download]');
+  await expect(resume).toHaveAttribute('href', 'CRV_GCPA.pdf');
+  await expect(resume).toHaveAttribute('download', 'Curriculo_Gustavo_Assis.pdf');
+  const response = await request.get('/CRV_GCPA.pdf');
+  expect(response.ok(), 'Resume PDF must be publicly served').toBeTruthy();
+  expect(response.headers()['content-type']).toContain('pdf');
+  await expect(page.locator('#contact a[href*="linkedin.com/in/"]')).toHaveCount(1);
+  await page.locator('#lang').click();
+  await expect(resume).toContainText('Download résumé');
+});
