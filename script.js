@@ -18,7 +18,7 @@
   }
   function setTheme(theme) {
     const light = theme === 'light';
-    document.body.classList.toggle('light', light);
+    document.body.classList.toggle('light', light);\n    root.dataset.theme = light ? 'light' : 'dark';
     themeButton.textContent = light ? '☾' : '☀';
     themeButton.setAttribute('aria-label', light ? 'Activate dark theme' : 'Activate light theme');
     safeSet('portfolio-theme', light ? 'light' : 'dark');
