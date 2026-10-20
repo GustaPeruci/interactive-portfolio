@@ -61,7 +61,7 @@ Acompanhe: https://github.com/GustaPeruci/interactive-portfolio/actions
 ├── tests/
 │   ├── browser/portfolio.spec.mjs
 │   └── portfolio.test.mjs
-├── playwright.config.mjs
+├── CRV_GCPA.pdf\n├── playwright.config.mjs
 ├── index.html
 ├── styles.css
 ├── script.js
@@ -70,9 +70,9 @@ Acompanhe: https://github.com/GustaPeruci/interactive-portfolio/actions
 
 ## Antes de divulgar
 
-- Adicionar o perfil correto do LinkedIn quando o endereço estiver confirmado (a página ainda não apresenta um link para ele).
+- Manter o endereço do LinkedIn atualizado na seção de contato.
 - Revisar descrições profissionais para garantir que não exponham informações internas ou confidenciais.
-- Adicionar o currículo em PDF quando houver uma versão pública revisada.
+- Atualizar `CRV_GCPA.pdf` quando houver uma nova versão pública do currículo.
 - Verificar periodicamente se os links externos dos projetos continuam funcionando.
 
 ## Licença
