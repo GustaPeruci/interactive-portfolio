@@ -22,3 +22,19 @@ a.skip-link:focus,a.skip-link:focus-visible{position:fixed!important;top:12px!im
 
 /* Career timeline: keep dates legible on small screens */
 .education-note{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:22px}.education-note>span{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--accent)}.education-note>strong{font-size:14px}.timeline article>small{white-space:normal;line-height:1.5}@media(max-width:650px){.education-note{align-items:flex-start;flex-direction:column;gap:6px}.timeline article{min-width:0}.timeline article>div{min-width:0}}
+
+/* Mobile layout hardening for long bilingual labels and case studies */
+.project,.project-body,.panel,.case-grid>*{min-width:0}
+.project-links a,.case-navigation a{overflow-wrap:anywhere}
+.arch-node{overflow-wrap:anywhere}
+@media(max-width:600px){
+  .case-stats{grid-template-columns:1fr}
+  .case-stats .panel{padding:16px 20px}
+  .case-stats strong{font-size:28px}
+  .case-navigation{align-items:stretch}
+  .case-navigation a{min-height:44px;display:inline-flex;align-items:center}
+  .timeline article{grid-template-columns:1fr;gap:7px;padding-left:22px;padding-bottom:34px}
+  .timeline article>small{letter-spacing:.06em}
+  .arch-split{grid-template-columns:1fr}
+  .project-links{gap:12px 18px}
+}
