@@ -36,10 +36,10 @@ test('translation, project filters and skip link work', async ({ page }) => {
   await expect(page.locator('.project[data-category="design"]')).toBeHidden();
   await page.getByRole('button', { name: 'All', exact: true }).click();
   await expect(page.locator('.project[data-category="design"]')).toBeVisible();
+  // Use a fresh document: Tab must reach the skip link as the first focusable element.
+  await page.goto('/');
   const skip = page.locator('.skip-link');
   await expect(skip).toBeHidden();
-  // Reset focus to the document before testing first-tab keyboard navigation.
-  await page.evaluate(() => { if (document.activeElement instanceof HTMLElement) document.activeElement.blur(); });
   await page.keyboard.press('Tab');
   await expect(skip).toBeFocused();
   await expect(skip).toBeVisible();
