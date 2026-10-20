@@ -78,6 +78,13 @@ test('resume download and professional contact links are available', async ({ pa
   const response = await request.get('/CRV_GCPA.pdf');
   expect(response.ok(), 'Resume PDF must be publicly served').toBeTruthy();
   expect(response.headers()['content-type']).toContain('pdf');
+  const pdf = await response.body();
+  expect(pdf.subarray(0, 5).toString('ascii'), 'Resume must contain actual PDF bytes').toBe('%PDF-');
+  const downloadPromise = page.waitForEvent('download');
+  await resume.click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toBe('Curriculo_Gustavo_Assis.pdf');
+  expect(await download.failure()).toBeNull();
   await expect(page.locator('#contact a[href*="linkedin.com/in/"]')).toHaveCount(1);
   await page.locator('#lang').click();
   await expect(resume).toContainText('Download résumé');
