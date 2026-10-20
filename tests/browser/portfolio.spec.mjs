@@ -39,10 +39,12 @@ test('translation, project filters and skip link work', async ({ page }) => {
   // Use a fresh document: Tab must reach the skip link as the first focusable element.
   await page.goto('/');
   const skip = page.locator('.skip-link');
-  await expect(skip).toBeHidden();
+  const initialBox = await skip.boundingBox();
+  expect(initialBox, 'Skip link should exist in the layout').not.toBeNull();
+  expect(initialBox.y + initialBox.height, 'Skip link must start above the viewport').toBeLessThanOrEqual(0);
   await page.keyboard.press('Tab');
   await expect(skip).toBeFocused();
-  await expect(skip).toBeVisible();
+  await expect.poll(async () => (await skip.boundingBox())?.y ?? -999).toBeGreaterThanOrEqual(0);
   await skip.press('Enter');
   await expect(page).toHaveURL(/#main-content$/);
 });
