@@ -70,7 +70,7 @@ Acompanhe: https://github.com/GustaPeruci/interactive-portfolio/actions
 
 ## Antes de divulgar
 
-- Substituir o link genérico do LinkedIn pelo perfil profissional correto.
+- Adicionar o perfil correto do LinkedIn quando o endereço estiver confirmado (a página ainda não apresenta um link para ele).
 - Revisar descrições profissionais para garantir que não exponham informações internas ou confidenciais.
 - Adicionar o currículo em PDF quando houver uma versão pública revisada.
 - Verificar periodicamente se os links externos dos projetos continuam funcionando.
