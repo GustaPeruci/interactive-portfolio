@@ -89,3 +89,16 @@ test('resume download and professional contact links are available', async ({ pa
   await page.locator('#lang').click();
   await expect(resume).toContainText('Download résumé');
 });
+
+test('public professional profile metadata is consistent', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://gustaperuci.github.io/interactive-portfolio/');
+  await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', /Gustavo Assis/);
+  await expect(page.locator('meta[name="twitter:description"]')).toHaveAttribute('content', /Full Stack/);
+  const jsonLd = await page.locator('script[type="application/ld+json"]').textContent();
+  const profile = JSON.parse(jsonLd);
+  expect(profile['@type']).toBe('Person');
+  expect(profile.name).toBe('Gustavo Assis');
+  expect(profile.sameAs).toContain('https://github.com/GustaPeruci');
+  expect(profile.sameAs).toContain('https://www.linkedin.com/in/gustavo-conceição-peruci-de-assis');
+});
