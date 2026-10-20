@@ -26,6 +26,7 @@ test('renders without horizontal overflow and captures both themes', async ({ pa
 });
 
 test('translation, project filters and skip link work', async ({ page }) => {
+  await page.addInitScript(() => { localStorage.setItem('portfolio-language', 'pt'); });
   await page.goto('/');
   await page.locator('#lang').click();
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
