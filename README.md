@@ -1,59 +1,79 @@
 # Interactive Portfolio
 
-Portfólio pessoal interativo de **Gustavo Assis**, desenvolvedor Full Stack.
+Portfólio bilíngue (PT-BR / EN) de **Gustavo Assis**, desenvolvedor Full Stack.
 
-## Funcionalidades
+**Site:** https://gustaperuci.github.io/interactive-portfolio/
 
-- Interface responsiva, com linguagem visual híbrida inspirada no Forge
-- Conteúdo em português e inglês, com preferência persistida localmente
-- Tema claro/escuro, respeitando a preferência do sistema
-- Seções: apresentação, sobre, experiência, projetos, stack e contato
-- Acessibilidade básica, navegação por âncoras e redução de movimento
-- Deploy automático com GitHub Actions e GitHub Pages
+## Conteúdo
 
-## Stack
+- Apresentação profissional, formação e experiência em InfoSoft Sistemas e WEG
+- Projetos com estudos de caso: Forge Design System, OpsPilot e Pryzor
+- Competências de engenharia, stack e contato
+- Tema claro/escuro e idioma português/inglês, com preferências persistidas em `localStorage`
+- Filtros de projetos, navegação por âncoras e link de salto para o conteúdo
+- Layout responsivo com estilos e tokens inspirados no Forge
 
-HTML5, CSS3 e JavaScript nativo. Não há build nem instalação de dependências.
+## Tecnologias
 
-## Desenvolvimento local
+HTML5, CSS3 e JavaScript nativo. O site não requer build ou framework de frontend. Os testes de navegador usam Playwright no CI.
 
-Clone o repositório e abra `index.html` no navegador. Para testar em um servidor HTTP local:
+## Executar localmente
 
 ```bash
-python -m http.server 8000
+python3 -m http.server 8000
 ```
 
-Acesse http://localhost:8000.
+Abra http://localhost:8000.
 
-## Publicação no GitHub Pages
+## Testes
 
-1. Abra **Settings → Pages** no repositório.
-2. Em **Build and deployment → Source**, selecione **GitHub Actions**.
-3. Abra a aba **Actions** e confira a execução de **Deploy portfolio to GitHub Pages**.
-4. Se necessário, execute manualmente pelo botão **Run workflow**.
-5. Após sucesso, o endereço será https://gustaperuci.github.io/interactive-portfolio/.
+Verificação JavaScript:
 
-O deploy usa `.github/workflows/deploy.yml` e é acionado por push na branch `main`.
+```bash
+node --check script.js
+node --test tests/*.test.mjs
+```
 
-## Personalização antes de divulgar
+Testes de navegador em Chromium (desktop 1440 px, tablet 768 px e mobile 375 px):
 
-- Trocar o link genérico de LinkedIn (`https://www.linkedin.com/`) pelo perfil correto em `index.html`.
-- Revisar as descrições de experiência profissional e projetos para evitar divulgar informações internas.
-- Adicionar PDF do currículo e link de download, quando disponível.
-- Integrar tokens/componentes reais do Forge após validar a distribuição pública do pacote.
-- Rever links públicos para OpsPilot e para o projeto de conclusão de curso.
+```bash
+npm install --no-save --package-lock=false @playwright/test@1.56.1
+npx playwright install chromium
+npx playwright test
+```
+
+O Playwright inicia automaticamente um servidor local na porta 4173, valida interações e responsividade e salva capturas e traces em `test-results/`. O CI também disponibiliza esses arquivos como artefatos, quando presentes.
+
+## Deploy
+
+O workflow `.github/workflows/deploy.yml` roda os testes antes de publicar o site no GitHub Pages. Em **Settings → Pages**, a fonte deve estar configurada como **GitHub Actions**.
+
+Acompanhe: https://github.com/GustaPeruci/interactive-portfolio/actions
 
 ## Estrutura
 
 ```text
 .
 ├── .github/workflows/deploy.yml
-├── assets/favicon.svg
+├── assets/
+│   ├── favicon.svg
+│   └── forge.css
+├── tests/
+│   ├── browser/portfolio.spec.mjs
+│   └── portfolio.test.mjs
+├── playwright.config.mjs
 ├── index.html
 ├── styles.css
 ├── script.js
 └── README.md
 ```
+
+## Antes de divulgar
+
+- Substituir o link genérico do LinkedIn pelo perfil profissional correto.
+- Revisar descrições profissionais para garantir que não exponham informações internas ou confidenciais.
+- Adicionar o currículo em PDF quando houver uma versão pública revisada.
+- Verificar periodicamente se os links externos dos projetos continuam funcionando.
 
 ## Licença
 
