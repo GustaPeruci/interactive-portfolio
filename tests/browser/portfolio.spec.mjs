@@ -48,3 +48,22 @@ test('translation, project filters and skip link work', async ({ page }) => {
   await skip.press('Enter');
   await expect(page).toHaveURL(/#main-content$/);
 });
+
+test('language and theme preferences survive a reload', async ({ page }) => {
+  await page.addInitScript(() => {
+    if (!localStorage.getItem('portfolio-language')) localStorage.setItem('portfolio-language', 'pt');
+    if (!localStorage.getItem('portfolio-theme')) localStorage.setItem('portfolio-theme', 'dark');
+  });
+  await page.goto('/');
+  await expect(page.locator('html')).toHaveAttribute('lang', 'pt-BR');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  await page.locator('#lang').click();
+  await page.locator('#theme').click();
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+  await page.reload();
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+  expect(await page.evaluate(() => localStorage.getItem('portfolio-language'))).toBe('en');
+  expect(await page.evaluate(() => localStorage.getItem('portfolio-theme'))).toBe('light');
+});
