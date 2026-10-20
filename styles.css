@@ -41,3 +41,6 @@ a.skip-link:focus,a.skip-link:focus-visible{position:fixed!important;top:12px!im
 
 /* Keep decorative glow within the document viewport; previously right:-230px caused 226px of horizontal overflow. */
 .glow{right:0;width:min(880px,100vw)}
+
+/* Match the actual document scroll container; do not let decorative layers widen it. */
+html{overflow-x:clip}
