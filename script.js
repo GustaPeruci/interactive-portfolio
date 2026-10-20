@@ -27,5 +27,5 @@
   themeButton.addEventListener('click', () => setTheme(document.body.classList.contains('light') ? 'dark' : 'light'));
   setLanguage(safeGet('portfolio-language') || (navigator.language.toLowerCase().startsWith('pt') ? 'pt' : 'en'));
   setTheme(safeGet('portfolio-theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'));
-  year.textContent = String(new Date().getFullYear());
+  document.querySelectorAll('[data-filter]').forEach(button => {\n    button.addEventListener('click', () => {\n      const filter = button.dataset.filter;\n      document.querySelectorAll('[data-filter]').forEach(item => {\n        const active = item === button;\n        item.classList.toggle('active', active);\n        item.setAttribute('aria-pressed', String(active));\n      });\n      document.querySelectorAll('.project[data-category]').forEach(project => {\n        project.hidden = filter !== 'all' && project.dataset.category !== filter;\n      });\n    });\n  });\n  year.textContent = String(new Date().getFullYear());
 })();
